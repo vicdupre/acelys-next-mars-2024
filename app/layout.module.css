@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #4a4a4a;
+  color: white;
+  height: 100px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  height: calc(100vh - 100px);
+}
+
+.sidebar {
+  background-color: gainsboro;
+  color: white;
+  padding: 1rem;
+}
