@@ -6,13 +6,17 @@ import bagImg from "../public/bag.jpg";
 import { fetchApi } from "./lib/apiService";
 
 export default async function Home() {
-  const products = await fetchApi<Products>("products");
+  const res = await fetchApi<Products>("products");
+  console.log("res", res);
+  if (res.error) {
+    throw new Error(res.error.message);
+  }
 
   return (
     <main className={styles.main}>
       <Image src={bagImg} alt="bag" width={300} height={300} />
       <h1>Products</h1>
-      {products.map((product) => (
+      {res.data.map((product) => (
         <Link href={`/product/${product.id}`} key={product.id}>
           {product.title}
         </Link>

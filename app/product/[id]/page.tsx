@@ -7,10 +7,16 @@ import ProductRating from "@/app/ui/product/ProductRating";
 import { Suspense } from "react";
 
 export const generateMetadata = async ({ params: { id } }: PageProps) => {
-  const product = await fetchFakeStore<Product>(`products/${id}`);
-  return {
-    title: product.title,
-  };
+  try {
+    const product = await fetchFakeStore<Product>(`products/${id}`);
+    return {
+      title: product.title,
+    };
+  } catch (error) {
+    return {
+      title: "Product not found",
+    };
+  }
 };
 
 const ProductPage = ({ params: { id } }: PageProps) => {
