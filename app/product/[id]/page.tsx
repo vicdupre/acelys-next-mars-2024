@@ -1,12 +1,19 @@
 import { PageProps } from "@/.next/types/app/page";
 import { fetchFakeStore } from "@/app/lib/fakeStoreApiService";
+import { Product } from "@/app/lib/types";
 
 import ProductDetails from "@/app/ui/product/ProductDetails";
 import ProductRating from "@/app/ui/product/ProductRating";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Suspense } from "react";
 
-const Product = ({ params: { id } }: PageProps) => {
+export const generateMetadata = async ({ params: { id } }: PageProps) => {
+  const product = await fetchFakeStore<Product>(`products/${id}`);
+  return {
+    title: product.title,
+  };
+};
+
+const ProductPage = ({ params: { id } }: PageProps) => {
   //const product = await fetchFakeStore<Product>(`products/${id}`);
   /*   const name = ["Product", "Rating"];
   console.log(name[2].toLocaleLowerCase()); */
@@ -22,4 +29,4 @@ const Product = ({ params: { id } }: PageProps) => {
   );
 };
 
-export default Product;
+export default ProductPage;
