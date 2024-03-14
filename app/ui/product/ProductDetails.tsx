@@ -1,14 +1,18 @@
+import { fetchApi } from "@/app/lib/apiService";
 import { fetchFakeStore } from "@/app/lib/fakeStoreApiService";
 import { Product } from "@/app/lib/types";
 import Image from "next/image";
 
 const ProductDetails = async ({ id }: { id: string }) => {
-  const product = await fetchFakeStore<Product>(`products/${id}`);
+  const { status, data, error } = await fetchApi<Product>(`products/${id}`);
+  if (error) {
+    throw new Error(error.message);
+  }
   return (
     <div>
-      <h2>{product.title}</h2>
-      <Image src={product.image} alt="" width={300} height={300} />
-      <p>{product.description}</p>
+      <h2>{data.title}</h2>
+      <Image src={data.image} alt="" width={300} height={300} />
+      <p>{data.description}</p>
     </div>
   );
 };
