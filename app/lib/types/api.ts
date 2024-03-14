@@ -1,11 +1,11 @@
 export type ApiResponse<T> = ApiErrorResonse | ApiSuccessResponse<T>;
 export interface ApiErrorResonse {
-  status: HTTPError;
+  status: HTTPStatus;
   error: ApiError;
   data: never;
 }
 export interface ApiSuccessResponse<T> {
-  status: HTTPSuccess;
+  status: HTTPError;
   data: T;
   error: never;
 }

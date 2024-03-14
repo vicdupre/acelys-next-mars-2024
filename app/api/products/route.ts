@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export const dynamic = "force-dynamic";
 
 export const GET = async (request: Request) => {
@@ -5,5 +7,5 @@ export const GET = async (request: Request) => {
     cache: "no-store",
   });
   const products = await response.json();
-  return Response.json({ data: products, status: 200 });
+  return NextResponse.json({ data: products, status: 200 });
 };

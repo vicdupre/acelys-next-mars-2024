@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export const GET = async (
   request: Request,
   { params }: { params: { id: string } }
@@ -10,9 +12,12 @@ export const GET = async (
     return Response.json({ data: product, status: 200 });
   } catch (error) {
     console.error(error);
-    return Response.json({
-      error: { message: "Product not found" },
-      status: 404,
-    });
+    return (
+      NextResponse.json({
+        error: { message: "Product not found" },
+        status: 404,
+      }),
+      { status: 404 }
+    );
   }
 };
