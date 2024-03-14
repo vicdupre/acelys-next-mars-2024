@@ -2,9 +2,8 @@ import { ApiResponse } from "./types/api";
 
 export const fetchApi = async <T>(
   uri: string,
-  options: RequestInit = {}
+  options: RequestInit = { cache: "no-store" }
 ): Promise<ApiResponse<T>> => {
-  console.log(`${process.env.PROJECT_URL}/api/${uri}`);
   const response = await fetch(
     `${process.env.PROJECT_URL}/api/${uri}`,
     options
