@@ -10,14 +10,10 @@ const initialState: {
   errors: [],
 };
 const EditCustomer = () => {
-  const { uid } = useParams();
-  const updateCustomerWithId = updateCustomer.bind(null, uid as string);
+  const { uid }: { uid: string } = useParams();
+  const updateCustomerWithId = updateCustomer.bind(null, uid);
   const [state, action] = useFormState(updateCustomerWithId, initialState);
-  return (
-    <form action={action}>
-      <input type="hidden" name="uid" value={uid} />
-    </form>
-  );
+  return <form action={action}></form>;
 };
 
 export default EditCustomer;
