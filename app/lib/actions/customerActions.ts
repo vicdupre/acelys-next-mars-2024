@@ -71,11 +71,47 @@ export const updateCustomer = async (
   prevData: any,
   formData: FormData
 ) => {
-  return {
-    errors: [
-      {
-        message: "An error occurred",
+  const updateCustomer = customerSchema.omit({
+    createdAt: true,
+    updatedAt: true,
+    id: true,
+  });
+
+  try {
+    const { name } = updateCustomer.parse(Object.fromEntries(formData));
+    const result = await prisma.customer.update({
+      where: {
+        id,
       },
-    ],
-  };
+      data: {
+        name,
+      },
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        errors: error.errors,
+      };
+    }
+    return {
+      errors: [
+        {
+          message: "An error occurred",
+        },
+      ],
+    };
+  }
+
+  revalidatePath(`/customers/${id}`);
+  redirect(`/customers/${id}`);
+};
+
+export const deleteCustomer = async (id: string) => {
+  await prisma.customer.delete({
+    where: {
+      id,
+    },
+  });
+  revalidatePath("/customers");
+  redirect("/customers");
 };

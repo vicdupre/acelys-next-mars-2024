@@ -29,3 +29,21 @@ export interface Post {
 }
 
 export type Products = Product[];
+
+export interface Customer {
+  id: string;
+  name: string;
+  invoices?: Invoice[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Invoice {
+  id: string;
+  amount: number;
+  status: string;
+  customer?: Customer;
+  customerId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

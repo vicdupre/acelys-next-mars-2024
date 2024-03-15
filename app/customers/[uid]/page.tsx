@@ -1,4 +1,7 @@
-import { getCustomerById } from "@/app/lib/actions/customerActions";
+import {
+  deleteCustomer,
+  getCustomerById,
+} from "@/app/lib/actions/customerActions";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -9,6 +12,7 @@ interface Props {
 }
 
 const Customer = async ({ params: { uid } }: Props) => {
+  const deleteCustomerWithId = deleteCustomer.bind(null, uid);
   const customer = await getCustomerById(uid, true);
   if (!customer) {
     notFound();
@@ -28,6 +32,11 @@ const Customer = async ({ params: { uid } }: Props) => {
         ))}
       </ul>
       <Link href={`/customers/${uid}/edit`}>Edit</Link>
+      <div>
+        <form action={deleteCustomerWithId}>
+          <button type="submit">Delete</button>
+        </form>
+      </div>
     </div>
   );
 };
