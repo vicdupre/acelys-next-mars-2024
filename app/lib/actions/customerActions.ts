@@ -65,3 +65,17 @@ export const getCustomerById = async (id: string, withInvoices = false) => {
   });
   return customer;
 };
+
+export const updateCustomer = async (
+  id: string,
+  prevData: any,
+  formData: FormData
+) => {
+  return {
+    errors: [
+      {
+        message: "An error occurred",
+      },
+    ],
+  };
+};
