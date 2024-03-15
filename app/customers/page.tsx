@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getAllCustomers } from "../lib/actions/customerActions";
 
 const Customers = async () => {
-  const customers = await getAllCustomers();
+  const customers = await getAllCustomers(true);
   return (
     <div>
       <h1>Customers</h1>

@@ -12,10 +12,10 @@ const customerSchema = z.object({
   updatedAt: z.date(),
 });
 
-export const getAllCustomers = async () => {
+export const getAllCustomers = async (withInvoices = false) => {
   const feed = await prisma.customer.findMany({
     include: {
-      invoices: true,
+      invoices: withInvoices,
     },
   });
   return feed;
@@ -52,4 +52,16 @@ export const createCustomer = async (prevData: any, formData: FormData) => {
   }
   revalidatePath("/customers");
   redirect("/customers");
+};
+
+export const getCustomerById = async (id: string, withInvoices = false) => {
+  const customer = await prisma.customer.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      invoices: withInvoices,
+    },
+  });
+  return customer;
 };
